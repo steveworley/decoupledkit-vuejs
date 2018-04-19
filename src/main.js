@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
+import { WaterwheelProvider } from './services/waterwheel.service'
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
+  provide: { $waterwheel: WaterwheelProvider }
 }).$mount('#app')
