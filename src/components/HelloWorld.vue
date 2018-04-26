@@ -1,9 +1,7 @@
 <template>
   <div class="hello">
     <ul id="test">
-      <li v-for="node of waterwheel.nodes" :key="node.id">
-        {{ node.title }}
-      </li>
+      <li v-for="dog in dogs" :key="dog.id">{{ dog.attributes.title }}</li>
     </ul>
   </div>
 </template>
@@ -11,11 +9,13 @@
 <script>
 export default {
   name: 'HelloWorld',
-  waterwheel: [
-    'node/dogs'
-  ],
-  data () {
-    return { waterwheel: { nodes: [] }}
+  waterwheel: {
+    dogs: 'node/dogs'
+  },
+  data() {
+    return {
+      dogs: []
+    }
   }
 }
 </script>
@@ -28,10 +28,6 @@ h3 {
 ul {
   list-style-type: none;
   padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 a {
   color: #42b983;
