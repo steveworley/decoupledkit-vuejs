@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import VueAsyncData from 'vue-async-data-2'
 
 const Waterwheel = require('waterwheel')
 
 class waterwheelProvider {
   constructor() {
+    // Less than ideal because these are stored clientside.
     this.waterwheel = new Waterwheel({
       base: 'http://local.decoupledkit.com',
       oauth: {
@@ -17,28 +17,37 @@ class waterwheelProvider {
     })
   }
 
+  provide(key = '$waterwheelProvider') {
+    return { '$waterwheelProvider': this }
+  }
+
   install = (Vue) => {
-    // const waterwheel = this.waterwheel;
+
+    Vue.prototype.$waterwheel = this.waterwheel;
+    Vue.prototype.$waterwheelErrors = [];
+
     Vue.mixin({
-      asyncData: {
-        nodes (resolve) {
-          return fetch('http://local.decoupledkit.com/jsonapi/node/dogs')
-            .then(res => res.json())
-            .then(data => resolve({waterwheel: {nodes: data.data }}))
-            .catch(err => console.error(err))
+      data() { 
+        return this.$options.waterwheel ? {
+          '$waterwheelData': {}
+        } : {};
+      },
+
+      created: function() {
+        if (this.$options.waterwheel) {
+          for (let key in this.$options.waterwheel) {
+            let path = this.$options.waterwheel[key]
+            this.$waterwheel.jsonapi.get(path, {}, null)
+              .then(res => Vue.set(this, key, res.data))
+              .catch(err => console.error(err))
+          }
         }
       }
     })
   }
-
-  getNodes() {
-    return 'this is the nodes'
-  }
-
 }
 
 export const WaterwheelProvider = new waterwheelProvider()
 
 // auto-install waterwheel + dependencies.
-Vue.use(VueAsyncData)
 Vue.use(WaterwheelProvider)

@@ -6,5 +6,5 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  provide: { $waterwheel: WaterwheelProvider }
+  provide: WaterwheelProvider.provide(),
 }).$mount('#app')
