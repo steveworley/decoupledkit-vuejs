@@ -3,9 +3,10 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 export default {
-  name: 'GraphqlSingle',
-  props: {}
+  name: 'GraphqlSingle'
 }
 </script>
 

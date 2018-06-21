@@ -1,28 +1,51 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">DecoupledKit</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <router-link :to="{ name: 'home' }" class="nav-link" activeClass="active">Home</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'crud' }" class="nav-link" activeClass="active">Drupal CRUD</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'gqls' }" class="nav-link" activeClass="active">GraphQL Single</router-link>            
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'gqlm' }" class="nav-link" activeClass="active">GraphQL Multi</router-link>
+          </li>
+          <li class="nav-item">          
+            <router-link :to="{ name: 'mock' }" class="nav-link" activeClass="active">User</router-link>  
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'chat' }" class="nav-link" activeClass="active">Chatbot</router-link>            
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row content">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.row.content {
+  padding-top: 2em;
 }
 </style>
