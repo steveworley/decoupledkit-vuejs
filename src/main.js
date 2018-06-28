@@ -6,7 +6,18 @@ import App from './App.vue'
 
 // --- Custom mixins for Vue --->
 import WaterwheelProvider from './services/waterwheel.service'
+
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+
+const httpLink = new HttpLink({ uri: 'http://localhost:8082/graphql' })
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+  connectToDevTools: true
+});
 
 Vue.config.productionTip = false
 
@@ -19,6 +30,7 @@ const waterwheel = new WaterwheelProvider({
 })
 
 Vue.use(waterwheel)
+Vue.use(VueApollo)
 
 new Vue({
   render: h => h(App),

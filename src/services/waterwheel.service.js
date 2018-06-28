@@ -26,7 +26,7 @@ class waterwheelProvider {
     })
   }
 
-  install = (Vue) => {
+  install(Vue) {
 
     Vue.prototype.$waterwheel = this.waterwheel;
     Vue.prototype.$waterwheelErrors = [];
@@ -92,7 +92,9 @@ class waterwheelProvider {
             let filter = typeof prop === 'string' ? {} : prop.filter ? prop.filter : {}
   
             this.$waterwheel.jsonapi.get(path, filter, uuid)
-              .then(res => Vue.set(this, key, res.data))
+              .then(res => {
+                return Vue.set(this, key, res.data)
+              })
               .catch(err => this.$waterwheelErrors.push(err))
           }
         }

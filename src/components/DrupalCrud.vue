@@ -26,20 +26,20 @@
     <div class="node-rows">
       <div v-for="dog in dogs" :key="dog.id" class="card">
         <div class="card-body">
-          <h4 class="card-title">{{ dog.title }}</h4>
+          <h4 class="card-title">{{ dog.attributes.title }}</h4>
           <div class="carrd-text">
             <span class="badge source-drupal">Drupal API</span>
             <div class="nid">
               <div class="label">NID</div>
-              {{ dog.nid }}
+              {{ dog.attributes.nid }}
             </div>
             <div class="body">
               <div class="label">Body</div>
-              <template v-html="dog.body.value"></template>
+              <div v-html="dog.attributes.body.value"></div>
             </div>
             <div class="history-and-background">
               <div class="label">History and background</div>
-              {{ dog.history_and_background.value }}
+              <!-- {{ dog.attributes.history_and_background.value }} -->
             </div>
             <div v-if="dog.image" class="row image">
               <div class="label">NID</div>
